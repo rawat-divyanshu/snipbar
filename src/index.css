@@ -1,0 +1,241 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-display: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-sans: "Manrope", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --color-obsidian-950: #090C11;
+  --color-obsidian-900: #10151E;
+  --color-obsidian-800: #18202D;
+  --color-titanium-100: #F2EFE9;
+  --color-titanium-300: #C8C4BC;
+  --color-titanium-500: #8B929B;
+  --color-cobalt-400: #38BDF8;
+  --color-cobalt-600: #0284C7;
+  --color-secure-400: #34D399;
+  --color-secret-400: #FB7185;
+
+  --ease-macos: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:root {
+  --bg-canvas: #F7F8FA;
+  --bg-surface: #FFFFFF;
+  --bg-surface-elevated: #F1F3F7;
+  --bg-hud: rgba(255, 255, 255, 0.86);
+  --border-subtle: rgba(15, 23, 42, 0.08);
+  --border-strong: rgba(15, 23, 42, 0.14);
+  --border-specular: rgba(255, 255, 255, 0.9);
+  --text-primary: #0B0E14;
+  --text-secondary: #475569;
+  --text-muted: #64748B;
+  --accent-action: #0284C7;
+  --accent-action-hover: #0369A1;
+  --accent-titanium: linear-gradient(135deg, #1E2430 0%, #0E131C 100%);
+  --semantic-secure: #059669;
+  --semantic-secret: #E11D48;
+  --studio-sheen: radial-gradient(62% 48% at 18% 0%, rgba(200, 196, 188, 0.24) 0%, rgba(247, 248, 250, 0) 70%);
+}
+
+.dark {
+  --bg-canvas: #090C11;
+  --bg-surface: #10151E;
+  --bg-surface-elevated: #151C28;
+  --bg-hud: rgba(17, 23, 34, 0.88);
+  --border-subtle: rgba(240, 236, 228, 0.08);
+  --border-strong: rgba(240, 236, 228, 0.14);
+  --border-specular: rgba(240, 236, 228, 0.16);
+  --text-primary: #F2EFE9;
+  --text-secondary: #9CA6B5;
+  --text-muted: #667182;
+  --accent-action: #38BDF8;
+  --accent-action-hover: #7DD3FC;
+  --accent-titanium: linear-gradient(135deg, #F4F0E8 0%, #C8C4BC 55%, #8C94A0 100%);
+  --semantic-secure: #34D399;
+  --semantic-secret: #FB7185;
+  --studio-sheen: radial-gradient(58% 42% at 16% 0%, rgba(242, 239, 233, 0.055) 0%, rgba(9, 12, 17, 0) 68%);
+}
+
+@layer base {
+  html {
+    background-color: var(--bg-canvas);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--bg-canvas);
+    background-image: var(--studio-sheen);
+    background-repeat: no-repeat;
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.65;
+    letter-spacing: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .dark body {
+    letter-spacing: 0.01em;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    color: var(--text-primary);
+  }
+
+  code, pre, kbd {
+    font-family: var(--font-mono);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent-action);
+    outline-offset: 2px;
+  }
+}
+
+/* Machined surface utilities */
+.surface-panel {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  box-shadow: inset 0 1px 0 var(--border-specular);
+}
+
+.surface-hud {
+  background-color: var(--bg-hud);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--border-strong);
+  box-shadow:
+    inset 0 1px 0 var(--border-specular),
+    0 24px 60px -16px rgba(0, 0, 0, 0.45);
+}
+
+.dark .surface-hud {
+  box-shadow:
+    inset 0 1px 0 rgba(240, 236, 228, 0.16),
+    0 28px 70px -12px rgba(0, 0, 0, 0.72);
+}
+
+/* Primary machined titanium CTA */
+.btn-titanium {
+  background-color: #0B0E14;
+  color: #F7F8FA;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 1px 2px rgba(0, 0, 0, 0.15);
+  transition: transform 150ms var(--ease-macos), background-color 150ms var(--ease-macos), opacity 150ms var(--ease-macos);
+}
+
+.btn-titanium:hover {
+  background-color: #18202D;
+}
+
+.btn-titanium:active {
+  transform: translateY(1px);
+}
+
+.dark .btn-titanium {
+  background-color: #F2EFE9;
+  color: #090C11;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75), 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.dark .btn-titanium:hover {
+  background-color: #FFFFFF;
+}
+
+/* Secondary anodized ghost CTA */
+.btn-ghost {
+  background-color: rgba(15, 23, 42, 0.04);
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  color: var(--text-primary);
+  transition: transform 150ms var(--ease-macos), background-color 150ms var(--ease-macos), border-color 150ms var(--ease-macos);
+}
+
+.btn-ghost:hover {
+  background-color: rgba(15, 23, 42, 0.08);
+  border-color: rgba(15, 23, 42, 0.2);
+}
+
+.dark .btn-ghost {
+  background-color: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(240, 236, 228, 0.12);
+  color: #F2EFE9;
+}
+
+.dark .btn-ghost:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: rgba(240, 236, 228, 0.2);
+}
+
+.btn-ghost:active {
+  transform: translateY(1px);
+}
+
+/* Editorial type scale helpers */
+.hero-headline {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 4.5vw, 4rem);
+  line-height: 1.06;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+.section-heading {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 2.5vw, 2.25rem);
+  line-height: 1.15;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+/* Subtle custom scrollbars inside macOS simulator */
+.macos-scroll::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.macos-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.macos-scroll::-webkit-scrollbar-thumb {
+  background: rgba(139, 146, 155, 0.28);
+  border-radius: 9999px;
+}
+
+.macos-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 146, 155, 0.45);
+}
+
+/* Compositor-only overlay transitions */
+@keyframes macosSettle {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-macos-settle {
+  animation: macosSettle 160ms var(--ease-macos) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
